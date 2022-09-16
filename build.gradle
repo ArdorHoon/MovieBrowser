@@ -8,7 +8,15 @@ plugins {
 
 ext {
     hilt_version = "2.41"
+    retrofit_version = "2.9.0"
+    glide_version = "4.13.2"
+    room_version = "2.4.3"
+    fragment_ktx_version = "1.5.2"
+    navigation_ktx_version = "2.5.2"
+    room_ktx_version = "2.4.3"
+    coroutines_version = "1.6.1"
 }
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
