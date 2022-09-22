@@ -1,6 +1,6 @@
 package com.ardor.moviebroswer.viewmodel
 
-import androidx.lifecycle.ViewModel
+import com.ardor.moviebroswer.core.base.BaseViewModel
 
-class MovieViewModel() : ViewModel() {
+class MovieViewModel() : BaseViewModel() {
 }
