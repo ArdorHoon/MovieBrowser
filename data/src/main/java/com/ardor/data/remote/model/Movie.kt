@@ -1,9 +1,13 @@
 package com.ardor.data.remote.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Movie(
-    val imdbID: String,
-    val title: String,
-    val year: String,
-    val type: String,
-    val poster: String
-)
+    val Poster: String = "",
+    val Title: String = "",
+    val Type: String? = "",
+    val Year: String? = "",
+    val imdbID: String = ""
+) : Parcelable

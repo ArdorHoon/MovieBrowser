@@ -5,7 +5,9 @@ import com.ardor.moviebroswer.R
 import com.ardor.moviebroswer.core.base.BaseActivity
 import com.ardor.moviebroswer.databinding.ActivityMainBinding
 import com.ardor.moviebroswer.viewmodel.MovieViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MovieViewModel>(R.layout.activity_main) {
 
     override val viewModel: MovieViewModel by viewModels()
