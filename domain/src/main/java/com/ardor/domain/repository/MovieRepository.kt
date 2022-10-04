@@ -1,7 +1,7 @@
 package com.ardor.domain.repository
 
-import com.ardor.domain.model.ResultEntity
+import com.ardor.domain.model.SearchResultEntity
 
 interface MovieRepository {
-    suspend fun getMovies(title: String): ResultEntity
+    suspend fun getSearchResults(title: String): SearchResultEntity
 }

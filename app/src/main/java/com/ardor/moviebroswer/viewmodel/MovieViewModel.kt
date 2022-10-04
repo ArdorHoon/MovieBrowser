@@ -18,6 +18,5 @@ class MovieViewModel @Inject constructor(
             val temp = getMoviesUseCase(title)
             Log.d("testing", temp.toString())
         }
-
     }
 }
