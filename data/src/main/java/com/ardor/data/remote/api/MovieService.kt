@@ -1,5 +1,6 @@
 package com.ardor.data.remote.api
 
+import com.ardor.data.remote.model.Movie
 import com.ardor.data.remote.model.SearchResult
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -17,5 +18,5 @@ interface MovieService {
     suspend fun getMovieDetails(
         @Query(value = "apiKey") apiKey: String,
         @Query(value = "i") imdbId: String
-    )
+    ) : Movie
 }

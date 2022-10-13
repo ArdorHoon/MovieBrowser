@@ -16,7 +16,6 @@ class MovieViewModel @Inject constructor(
     fun getMovies(title: String) {
         viewModelScope.launch {
             val temp = getMoviesUseCase(title)
-            Log.d("testing", temp.toString())
         }
     }
 }

@@ -1,8 +1,5 @@
 package com.ardor.data.remote.model
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-
 data class Movie(
     val Actors: String = "",
     val Awards: String = "",
