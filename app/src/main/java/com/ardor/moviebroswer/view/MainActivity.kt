@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ardor.moviebroswer.R
 import com.ardor.moviebroswer.core.base.BaseActivity
@@ -26,9 +24,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MovieViewModel>(R.layout.
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         val navController = navHostFragment.navController
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.navigation_home, R.id.navigation_favorite)
-        )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.movieDetailFragment) {
@@ -39,7 +34,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MovieViewModel>(R.layout.
 
         }
 
-        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 }
