@@ -27,7 +27,7 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getMovieDetail(imbId: String): MovieEntity {
-        val data = movieService.getMovieDetails(imbId, API_KEY)
+        val data = movieService.getMovieDetails(API_KEY, imbId)
         return MovieEntity(
             Actors = data.Actors,
             Country = data.Country,

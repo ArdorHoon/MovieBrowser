@@ -22,6 +22,9 @@ class MovieAdapter(
         fun bind(item: SearchEntity) {
             binding.title.text = item.title
             Glide.with(binding.root).load(item.poster).into(binding.mainImg)
+            binding.root.setOnClickListener {
+                itemClickListener.moveDetailPage(item)
+            }
         }
     }
 

@@ -9,11 +9,29 @@
         android:id="@+id/navigation_home"
         android:name="com.ardor.moviebroswer.view.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_favorite"
         android:name="com.ardor.moviebroswer.view.FavoriteFragment"
         android:label="FavoriteFragment"
         tools:layout="@layout/fragment_favorite"
-        />
+        >
+        <action
+            android:id="@+id/action_navigation_favorite_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.ardor.moviebroswer.view.MovieDetailFragment"
+        tools:layout="@layout/fragment_movie_detail"
+        android:label="MovieDetailFragment" >
+        <argument
+            android:name="imbId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>
