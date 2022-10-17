@@ -12,16 +12,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieViewModel @Inject constructor(
-    private val getMoviesUseCase: GetMoviesUseCase
+    private val getMoviesUseCase: GetMoviesUseCase,
 ) : BaseViewModel() {
 
     private val _searchResults : MutableStateFlow<List<SearchEntity>?> = MutableStateFlow(null)
     val searchResult : StateFlow<List<SearchEntity>?> =  _searchResults
-
 
     fun getMovies(title: String) {
         viewModelScope.launch {
             _searchResults.value = getMoviesUseCase(title).search
         }
     }
+
 }

@@ -3,6 +3,7 @@ package com.ardor.moviebroswer.view
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import com.ardor.domain.model.SearchEntity
 import com.ardor.moviebroswer.R
 import com.ardor.moviebroswer.core.base.BaseFragment
 import com.ardor.moviebroswer.databinding.FragmentHomeBinding
@@ -11,13 +12,19 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment() :
-    BaseFragment<FragmentHomeBinding, MovieViewModel>(R.layout.fragment_home) {
+    BaseFragment<FragmentHomeBinding, MovieViewModel>(R.layout.fragment_home), MovieAdapter.ItemClickListener {
 
     override val viewModel: MovieViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.viewmodel = viewModel
+        binding.itemClickListener = this@HomeFragment
 
         viewModel.getMovies("frozen")
+    }
+
+    override fun moveDetailPage(result: SearchEntity) {
+        //something else
     }
 }
