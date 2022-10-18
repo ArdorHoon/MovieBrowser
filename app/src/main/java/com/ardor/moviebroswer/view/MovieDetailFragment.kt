@@ -3,6 +3,7 @@ package com.ardor.moviebroswer.view
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ardor.moviebroswer.R
 import com.ardor.moviebroswer.core.base.BaseFragment
@@ -21,6 +22,13 @@ class MovieDetailFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.fragment = this@MovieDetailFragment
         binding.viewmodel = viewModel
+        setBackButton()
         movieDetailArgs.imbId?.let { viewModel.load(it) }
+    }
+
+    private fun setBackButton() {
+        binding.ivBackButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 }

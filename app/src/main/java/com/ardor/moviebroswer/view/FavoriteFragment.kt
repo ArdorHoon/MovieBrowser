@@ -11,7 +11,6 @@ import com.ardor.moviebroswer.databinding.FragmentFavoriteBinding
 import com.ardor.moviebroswer.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class FavoriteFragment :
     BaseFragment<FragmentFavoriteBinding, MovieViewModel>(R.layout.fragment_favorite),
@@ -23,7 +22,6 @@ class FavoriteFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = viewModel
         binding.itemClickListener = this@FavoriteFragment
-
     }
 
     override fun moveDetailPage(result: SearchEntity) {

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewmodel"
             type="com.ardor.moviebroswer.viewmodel.MovieDetailViewModel" />
@@ -18,13 +19,13 @@
         android:id="@+id/movieDetailFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.MovieDetailFragment"
-        app:layoutDescription="@xml/fragment_movie_detail_scene">
+        app:layoutDescription="@xml/fragment_movie_detail_scene"
+        tools:context=".view.MovieDetailFragment">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_backButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/back_button_width"
+            android:layout_height="@dimen/back_button_height"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:elevation="1dp"
@@ -80,8 +81,8 @@
                 android:id="@+id/tv_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
                 android:text="@{viewmodel.detailMovie.year}"
+                android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_star"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/iv_star"
@@ -100,8 +101,8 @@
                 android:id="@+id/tv_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
                 android:text="@{viewmodel.detailMovie.getRating()}"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_star"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/iv_star"
@@ -111,43 +112,90 @@
                 android:id="@+id/tv_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:text="@{viewmodel.detailMovie.plot}"
                 android:textSize="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_star"
+                app:layout_constraintTop_toBottomOf="@+id/tv_awards"
                 tools:text="After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe." />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_directors"
+                android:id="@+id/title_directors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="@{viewmodel.detailMovie.director}"
+                android:text="Directors"
+                android:textColor="@android:color/black"
                 android:textSize="12dp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_description"
+                app:layout_constraintTop_toBottomOf="@id/tv_year"
                 tools:text="Directors" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_actors"
+                android:id="@+id/tv_directors"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:text="@{viewmodel.detailMovie.director}"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/title_directors"
+                app:layout_constraintTop_toBottomOf="@id/tv_year"
+                tools:text="Directors" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title_actors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:text="Actors"
+                android:textColor="@android:color/black"
                 android:textSize="12dp"
-                android:text="@{viewmodel.detailMovie.actors}"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_directors"
+                app:layout_constraintTop_toBottomOf="@id/title_directors"
                 tools:text="Actors" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_awards"
+                android:id="@+id/tv_actors"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:text="@{viewmodel.detailMovie.actors}"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/title_actors"
+                app:layout_constraintTop_toBottomOf="@+id/title_directors"
+                tools:text="Actors" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title_awards"
                 android:layout_width="wrap_content"
-                android:text="@{viewmodel.detailMovie.awards}"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:text="Award"
+                android:textColor="@android:color/black"
                 android:textSize="12dp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_actors"
+                tools:text="Awards" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_awards"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:text="@{viewmodel.detailMovie.awards}"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/title_awards"
+                app:layout_constraintTop_toBottomOf="@id/title_actors"
                 tools:text="Awards" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
