@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,7 +20,7 @@ class MovieViewModel @Inject constructor(
     private val getMoviesUseCase: GetMoviesUseCase,
     private val getAllFavoriteMoviesUseCase: GetAllFavoriteMoviesUseCase,
     private val insertFavoriteMovieUseCase: InsertFavoriteMovieUseCase,
-    private val deleteFavoriteMovieUseCase: DeleteFavoriteMovieUseCase
+    private val deleteFavoriteMovieUseCase: DeleteFavoriteMovieUseCase,
 ) : BaseViewModel() {
 
     private val _searchResults: MutableStateFlow<List<SearchEntity>?> = MutableStateFlow(null)
@@ -30,7 +31,9 @@ class MovieViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            getAllFavoriteMoviesUseCase().collect {
+            getAllFavoriteMoviesUseCase().catch {
+                //handling error
+            }.collect {
                 _favoriteMovies.value = it
             }
         }
@@ -38,7 +41,9 @@ class MovieViewModel @Inject constructor(
 
     fun getMovies(title: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _searchResults.value = getMoviesUseCase(title).search
+            getMoviesUseCase(title).collect {
+                _searchResults.value = it.search
+            }
         }
     }
 }
