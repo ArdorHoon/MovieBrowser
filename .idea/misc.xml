@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Z3A220702/Desktop/work/MovieBrowser/app/src/main/res/drawable-v24/custom_favorite_checkbox.xml" value="0.1645" />
         <entry key="..\:/Users/Z3A220702/Desktop/work/MovieBrowser/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2135" />
         <entry key="..\:/Users/Z3A220702/Desktop/work/MovieBrowser/app/src/main/res/drawable/ic_arrow_back.xml" value="0.2375" />
         <entry key="..\:/Users/Z3A220702/Desktop/work/MovieBrowser/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1535" />
@@ -13,7 +14,7 @@
         <entry key="..\:/Users/Z3A220702/Desktop/work/MovieBrowser/app/src/main/res/layout/activity_main.xml" value="0.152" />
         <entry key="..\:/Users/Z3A220702/Desktop/work/MovieBrowser/app/src/main/res/layout/fragment_favorite.xml" value="0.2421875" />
         <entry key="..\:/Users/Z3A220702/Desktop/work/MovieBrowser/app/src/main/res/layout/fragment_home.xml" value="0.12158054711246201" />
-        <entry key="..\:/Users/Z3A220702/Desktop/work/MovieBrowser/app/src/main/res/layout/fragment_movie_detail.xml" value="0.1" />
+        <entry key="..\:/Users/Z3A220702/Desktop/work/MovieBrowser/app/src/main/res/layout/fragment_movie_detail.xml" value="0.4" />
         <entry key="..\:/Users/Z3A220702/Desktop/work/MovieBrowser/app/src/main/res/layout/movie_item.xml" value="0.25" />
         <entry key="..\:/Users/Z3A220702/Desktop/work/MovieBrowser/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2421875" />
       </map>
@@ -24,5 +25,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>
