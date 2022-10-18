@@ -8,6 +8,10 @@
             name="viewmodel"
             type="com.ardor.moviebroswer.viewmodel.MovieDetailViewModel" />
 
+        <variable
+            name="fragment"
+            type="com.ardor.moviebroswer.view.MovieDetailFragment" />
+
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -30,9 +34,9 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_poster"
+            imgResId="@{viewmodel.detailMovie.poster}"
             android:layout_width="match_parent"
             android:layout_height="260dp"
-            android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/image_not_found" />
 
@@ -43,6 +47,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
+            android:text="@{viewmodel.detailMovie.title}"
             android:textSize="26dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -76,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
+                android:text="@{viewmodel.detailMovie.year}"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_star"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/iv_star"
@@ -95,6 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:text="@{viewmodel.detailMovie.getRating()}"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_star"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/iv_star"
@@ -104,6 +111,7 @@
                 android:id="@+id/tv_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{viewmodel.detailMovie.plot}"
                 android:textSize="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_star"
@@ -114,6 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:text="@{viewmodel.detailMovie.director}"
                 android:textSize="12dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_description"
@@ -125,6 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:textSize="12dp"
+                android:text="@{viewmodel.detailMovie.actors}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_directors"
                 tools:text="Actors" />
@@ -132,6 +142,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_awards"
                 android:layout_width="wrap_content"
+                android:text="@{viewmodel.detailMovie.awards}"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:textSize="12dp"

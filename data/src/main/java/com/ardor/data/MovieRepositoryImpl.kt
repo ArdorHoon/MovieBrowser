@@ -43,14 +43,18 @@ class MovieRepositoryImpl @Inject constructor(
         return flow {
             val temp = movieService.getMovieDetails(API_KEY, imbId)
             val data = MovieEntity(
+                Title = temp.Title,
                 Actors = temp.Actors,
                 Country = temp.Country,
                 Director = temp.Director,
                 Poster = temp.Poster,
                 Genre = temp.Genre,
                 Rated = temp.Rated,
+                Plot = temp.Plot,
+                Awards = temp.Awards,
                 Ratings = temp.Ratings?.map { RatingEntity(it.Source, it.Value) },
                 Writer = temp.Writer,
+                imdbRating = temp.imdbRating,
                 Year = temp.Year
             )
             emit(data)

@@ -9,8 +9,13 @@ data class MovieEntity(
     val Metascore: String? = "",
     val Poster: String? = "",
     val Rated: String? = "",
+    val Plot: String? = "",
+    val Awards: String? = "",
     val Ratings: List<RatingEntity>? = listOf(),
     val Title: String? = "",
     val Writer: String? = "",
+    val imdbRating: String? = "",
     val Year: String? = "",
-)
+) {
+    fun getRating() = "$imdbRating / 10"
+}

@@ -19,6 +19,8 @@ class MovieDetailFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.fragment = this@MovieDetailFragment
+        binding.viewmodel = viewModel
         movieDetailArgs.imbId?.let { viewModel.load(it) }
     }
 }
