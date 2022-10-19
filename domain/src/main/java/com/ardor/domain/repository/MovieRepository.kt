@@ -11,4 +11,5 @@ interface MovieRepository {
     suspend fun getAllFavorites() : Flow<List<SearchEntity>>
     suspend fun insertFavorite(item : SearchEntity)
     suspend fun deleteFavorite(id : String)
+    suspend fun getFavorite(id : String) : Flow<SearchEntity?>
 }

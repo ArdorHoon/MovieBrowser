@@ -24,6 +24,8 @@ class MovieDetailFragment :
         binding.viewmodel = viewModel
         setBackButton()
         movieDetailArgs.imbId?.let { viewModel.load(it) }
+        movieDetailArgs.imbId?.let { viewModel.loadFavorite(it) }
+
     }
 
     private fun setBackButton() {

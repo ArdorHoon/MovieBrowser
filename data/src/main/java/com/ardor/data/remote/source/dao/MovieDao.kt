@@ -10,11 +10,15 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MovieDao {
     @Query("SELECT * FROM ${Search.TABLE_NAME}")
-    fun getAll() : Flow<List<Search>>
+    fun getAll(): Flow<List<Search>>
 
     @Query("DELETE FROM ${Search.TABLE_NAME} WHERE ${Search.PRIMARY_KEY} = :id ")
-    fun delete(id : String)
+    fun delete(id: String)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(item : Search)
+    fun insert(item: Search)
+
+    @Query("SELECT * FROM ${Search.TABLE_NAME} WHERE ${Search.PRIMARY_KEY} = :id")
+    fun getFavorite(id: String): Flow<Search?>
+
 }

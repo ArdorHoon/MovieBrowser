@@ -90,4 +90,18 @@ class MovieRepositoryImpl @Inject constructor(
     override suspend fun deleteFavorite(id: String) {
         movieDatabase.movieDao().delete(id)
     }
+
+    override suspend fun getFavorite(id: String): Flow<SearchEntity?> {
+        return movieDatabase.movieDao().getFavorite(id).mapLatest {
+            val temp = it?.let { search ->
+                SearchEntity(
+                    title = search.Title,
+                    year = search.Year ?: "",
+                    poster = search.Poster,
+                    imdbID = search.imdbID
+                )
+            }
+            temp
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.ardor.moviebroswer.view
 
+import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -10,7 +11,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 object CommonBindingAdapter {
-    
+
+    @BindingAdapter("checkFavorite")
+    @JvmStatic
+    fun checkFavorite(v : AppCompatCheckBox, flag : Boolean) {
+        v.isChecked = flag
+    }
+
     @BindingAdapter("imgResId")
     @JvmStatic
     fun setImageResourceFromNetwork(v: AppCompatImageView, url: String?) {
