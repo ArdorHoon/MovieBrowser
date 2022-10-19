@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.ardor.domain.model.SearchEntity
 import com.ardor.domain.usecase.*
 import com.ardor.moviebroswer.core.base.BaseViewModel
+import com.ardor.moviebroswer.view.HomeFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -48,6 +49,17 @@ class MovieViewModel @Inject constructor(
         }
     }
 
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            getMovies("frozen")
+            getAllFavoriteMoviesUseCase().catch {
+                //handling error
+            }.collect {
+                _favoriteMovies.value = it
+            }
+        }
+    }
+
     fun insertFavorite(item: SearchEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             insertFavoriteMovieUseCase(item)
@@ -83,17 +95,7 @@ class MovieViewModel @Inject constructor(
         return check
     }
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            getAllFavoriteMoviesUseCase().catch {
-                //handling error
-            }.collect {
-                _favoriteMovies.value = it
-            }
-        }
-    }
-
-    fun getMovies(title: String) {
+    private fun getMovies(title: String) {
         viewModelScope.launch(Dispatchers.IO) {
             getMoviesUseCase(title).collect {
                 _searchResults.value = it.search

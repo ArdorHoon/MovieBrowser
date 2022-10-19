@@ -35,7 +35,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MovieViewModel>(R.layout.
             }
 
         }
-
         navView.setupWithNavController(navController)
     }
 }

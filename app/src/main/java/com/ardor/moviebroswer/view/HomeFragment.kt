@@ -2,19 +2,14 @@ package com.ardor.moviebroswer.view
 
 import android.os.Bundle
 import android.view.View
-import android.widget.AbsListView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.ardor.domain.model.SearchEntity
 import com.ardor.moviebroswer.R
 import com.ardor.moviebroswer.core.base.BaseFragment
 import com.ardor.moviebroswer.databinding.FragmentHomeBinding
 import com.ardor.moviebroswer.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.String
-import kotlin.Int
-import kotlin.getValue
 
 
 @AndroidEntryPoint
@@ -29,12 +24,14 @@ class HomeFragment() :
         binding.viewmodel = viewModel
         binding.itemClickListener = this@HomeFragment
 
-        viewModel.getMovies("frozen")
-
     }
 
     override fun moveDetailPage(result: SearchEntity) {
         val action = HomeFragmentDirections.actionNavigationHomeToMovieDetailFragment(result)
         findNavController().navigate(action)
+    }
+
+    companion object {
+        const val TAG = "HomeFragment"
     }
 }

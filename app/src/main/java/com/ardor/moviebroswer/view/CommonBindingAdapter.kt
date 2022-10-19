@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ardor.domain.model.SearchEntity
 import com.ardor.moviebroswer.R
-import com.ardor.moviebroswer.core.extension.ScaleLayoutManager
 import com.ardor.moviebroswer.viewmodel.MovieViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -75,7 +74,6 @@ object CommonBindingAdapter {
         data?.let { items ->
             val adapter = view.adapter as? MovieAdapter
             adapter?.submitList(items) ?: run {
-//                view.layoutManager = ScaleLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
                 view.adapter = MovieAdapter(itemClickListener, viewModel).apply {
                     submitList(items)
                 }

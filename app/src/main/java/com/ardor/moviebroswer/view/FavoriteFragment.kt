@@ -30,4 +30,8 @@ class FavoriteFragment :
             FavoriteFragmentDirections.actionNavigationFavoriteToMovieDetailFragment(result)
         findNavController().navigate(action)
     }
+
+    companion object {
+        const val TAG = "FavoriteFragment"
+    }
 }
