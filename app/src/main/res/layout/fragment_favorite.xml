@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewmodel"
             type="com.ardor.moviebroswer.viewmodel.MovieViewModel" />
@@ -22,8 +23,11 @@
             android:id="@+id/favorites"
             data="@{viewmodel.favoriteMovies}"
             itemClickListener="@{itemClickListener}"
+            viewModel="@{viewmodel}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

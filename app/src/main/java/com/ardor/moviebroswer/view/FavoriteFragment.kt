@@ -22,6 +22,7 @@ class FavoriteFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = viewModel
         binding.itemClickListener = this@FavoriteFragment
+
     }
 
     override fun moveDetailPage(result: SearchEntity) {

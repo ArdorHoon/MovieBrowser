@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ardor.domain.model.SearchEntity
 import com.ardor.moviebroswer.databinding.MovieItemBinding
+import com.ardor.moviebroswer.viewmodel.MovieViewModel
 import com.bumptech.glide.Glide
 
 class MovieAdapter(
     private val itemClickListener: ItemClickListener,
+    private val viewModel : MovieViewModel
 ) : ListAdapter<SearchEntity, MovieAdapter.ViewHolder>(diffUtil) {
 
     interface ItemClickListener {
@@ -20,7 +22,6 @@ class MovieAdapter(
     inner class ViewHolder(private val binding: MovieItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SearchEntity) {
-            binding.title.text = item.title
             Glide.with(binding.root).load(item.poster).into(binding.mainImg)
             binding.root.setOnClickListener {
                 itemClickListener.moveDetailPage(item)

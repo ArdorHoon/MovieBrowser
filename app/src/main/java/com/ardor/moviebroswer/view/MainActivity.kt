@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ardor.moviebroswer.R
 import com.ardor.moviebroswer.core.base.BaseActivity
+import com.ardor.moviebroswer.core.extension.KeepStateFragment
 import com.ardor.moviebroswer.databinding.ActivityMainBinding
 import com.ardor.moviebroswer.viewmodel.MovieViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView

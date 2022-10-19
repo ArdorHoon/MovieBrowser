@@ -12,7 +12,7 @@ ext {
     retrofit_version = "2.9.0"
     glide_version = "4.13.2"
     room_version = "2.4.3"
-    fragment_ktx_version = "1.5.2"
+    fragment_ktx_version = "1.5.3"
     navigation_ktx_version = "2.5.2"
     room_ktx_version = "2.4.3"
     coroutines_version = "1.6.1"

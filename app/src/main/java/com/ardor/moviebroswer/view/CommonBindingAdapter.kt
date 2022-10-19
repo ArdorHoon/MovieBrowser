@@ -1,13 +1,17 @@
 package com.ardor.moviebroswer.view
 
+import android.view.View
+import android.widget.AbsListView
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ardor.domain.model.SearchEntity
+import com.ardor.moviebroswer.viewmodel.MovieViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
@@ -44,7 +48,7 @@ object CommonBindingAdapter {
     }
 
     @BindingAdapter(
-        value = ["data", "itemClickListener"],
+        value = ["data", "itemClickListener", "viewModel"],
         requireAll = false
     )
     @JvmStatic
@@ -52,7 +56,9 @@ object CommonBindingAdapter {
         view: RecyclerView,
         data: List<SearchEntity>?,
         itemClickListener: MovieAdapter.ItemClickListener,
+        viewModel: MovieViewModel
     ) {
+        val snap = PagerSnapHelper()
 
         view.setHasFixedSize(true)
         view.addItemDecoration(
@@ -61,11 +67,15 @@ object CommonBindingAdapter {
                 LinearLayoutManager.VERTICAL
             )
         )
+
+        if(view.onFlingListener == null) {
+            snap.attachToRecyclerView(view)
+        }
+
         data?.let { items ->
             val adapter = view.adapter as? MovieAdapter
             adapter?.submitList(items) ?: run {
-                view.layoutManager = LinearLayoutManager(view.context)
-                view.adapter = MovieAdapter(itemClickListener).apply {
+                view.adapter = MovieAdapter(itemClickListener, viewModel).apply {
                     submitList(items)
                 }
             }
