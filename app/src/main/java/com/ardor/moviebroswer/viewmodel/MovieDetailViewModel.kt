@@ -31,7 +31,6 @@ class MovieDetailViewModel @Inject constructor(
     private val _isFavorite: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isFavorite: StateFlow<Boolean> = _isFavorite
 
-
     fun onClickFavorite() {
         if (_isFavorite.value) {
             deleteFavorite(searchEntity.imdbID)

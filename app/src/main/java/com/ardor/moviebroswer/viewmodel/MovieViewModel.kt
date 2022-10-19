@@ -29,6 +29,12 @@ class MovieViewModel @Inject constructor(
     private val _favoriteMovies: MutableStateFlow<List<SearchEntity>?> = MutableStateFlow(null)
     val favoriteMovies: StateFlow<List<SearchEntity>?> = _favoriteMovies
 
+    val searchMovie = { query: String? ->
+        if (query != null) {
+            getMovies(query)
+        }
+    }
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             getAllFavoriteMoviesUseCase().catch {
