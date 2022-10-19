@@ -27,7 +27,7 @@ class HomeFragment() :
     }
 
     override fun moveDetailPage(result: SearchEntity) {
-        val action = HomeFragmentDirections.actionNavigationHomeToMovieDetailFragment(result.imdbID)
+        val action = HomeFragmentDirections.actionNavigationHomeToMovieDetailFragment(result)
         findNavController().navigate(action)
     }
 }

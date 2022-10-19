@@ -23,9 +23,10 @@ class MovieDetailFragment :
         binding.fragment = this@MovieDetailFragment
         binding.viewmodel = viewModel
         setBackButton()
-        movieDetailArgs.imbId?.let { viewModel.load(it) }
-        movieDetailArgs.imbId?.let { viewModel.loadFavorite(it) }
-
+        movieDetailArgs.searchEntity?.let {
+            viewModel.loadFavorite(it.imdbID)
+            viewModel.load(it)
+        }
     }
 
     private fun setBackButton() {

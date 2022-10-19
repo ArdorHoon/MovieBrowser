@@ -26,7 +26,7 @@ class FavoriteFragment :
 
     override fun moveDetailPage(result: SearchEntity) {
         val action =
-            FavoriteFragmentDirections.actionNavigationFavoriteToMovieDetailFragment(result.imdbID)
+            FavoriteFragmentDirections.actionNavigationFavoriteToMovieDetailFragment(result)
         findNavController().navigate(action)
     }
 }

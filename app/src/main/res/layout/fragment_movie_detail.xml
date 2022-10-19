@@ -25,6 +25,7 @@
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/favorite_btn"
             checkFavorite="@{viewmodel.isFavorite}"
+            android:onClick="@{() -> viewmodel.onClickFavorite()}"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="16dp"

@@ -1,6 +1,5 @@
 package com.ardor.moviebroswer.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.ardor.domain.model.MovieEntity
 import com.ardor.domain.model.SearchEntity
@@ -13,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,25 +26,48 @@ class MovieDetailViewModel @Inject constructor(
     private val _detailMovie: MutableStateFlow<MovieEntity?> = MutableStateFlow(null)
     val detailMovie: StateFlow<MovieEntity?> = _detailMovie
 
-    private var searchEntity: SearchEntity? = null
+    private lateinit var searchEntity: SearchEntity
 
     private val _isFavorite: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isFavorite: StateFlow<Boolean> = _isFavorite
 
-    fun loadFavorite(imbId: String){
+
+    fun onClickFavorite() {
+        if (_isFavorite.value) {
+            deleteFavorite(searchEntity.imdbID)
+
+        } else {
+            insertFavorite(searchEntity)
+        }
+    }
+
+
+    private fun insertFavorite(item: SearchEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            insertFavoriteMovieUseCase(item)
+        }
+    }
+
+    private fun deleteFavorite(id: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteFavoriteMovieUseCase(id)
+        }
+    }
+
+    fun loadFavorite(imbId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             getFavoriteMovieUseCase(imbId).collect {
                 if (it != null) {
-                    searchEntity = it
                     _isFavorite.value = true
                 }
             }
         }
     }
 
-    fun load(imbId: String) {
+    fun load(item: SearchEntity) {
+        searchEntity = item
         viewModelScope.launch {
-            getMovieDetailUseCase(imbId).collect {
+            getMovieDetailUseCase(item.imdbID).collect {
                 _detailMovie.value = it
             }
         }
