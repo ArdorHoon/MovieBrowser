@@ -1,6 +1,7 @@
 package com.ardor.moviebroswer.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -9,10 +10,13 @@ import com.ardor.domain.model.SearchEntity
 import com.ardor.moviebroswer.databinding.MovieItemBinding
 import com.ardor.moviebroswer.viewmodel.MovieViewModel
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MovieAdapter(
     private val itemClickListener: ItemClickListener,
-    private val viewModel : MovieViewModel
+    private val viewModel: MovieViewModel
 ) : ListAdapter<SearchEntity, MovieAdapter.ViewHolder>(diffUtil) {
 
     interface ItemClickListener {
@@ -22,9 +26,34 @@ class MovieAdapter(
     inner class ViewHolder(private val binding: MovieItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SearchEntity) {
+            if (adapterPosition == 0 || adapterPosition == currentList.size.minus(1)) {
+                binding.root.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+                val screenWidth = binding.root.context.resources.displayMetrics.widthPixels
+                val mLayoutParam: RecyclerView.LayoutParams =
+                    binding.root.layoutParams as RecyclerView.LayoutParams
+                if (adapterPosition == 0)
+                    mLayoutParam.leftMargin = 200
+                else
+                    mLayoutParam.rightMargin = 200
+                        //(screenWidth - binding.root.measuredWidthAndState) / 3
+            }
+
             Glide.with(binding.root).load(item.poster).into(binding.mainImg)
             binding.root.setOnClickListener {
                 itemClickListener.moveDetailPage(item)
+            }
+
+            //fix it
+            CoroutineScope(Dispatchers.IO).launch {
+                binding.favoriteBtn.isChecked = viewModel.checkCurrentFavorite(item.imdbID)
+            }
+
+            binding.favoriteBtn.setOnClickListener {
+                if (binding.favoriteBtn.isChecked) {
+                    viewModel.insertFavorite(item)
+                } else {
+                    viewModel.deleteFavorite(item.imdbID)
+                }
             }
         }
     }

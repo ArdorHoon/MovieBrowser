@@ -8,15 +8,21 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/body"
-        android:layout_width="match_parent"
-        android:layout_margin="20dp"
-        android:layout_height="500dp">
+        android:layout_width="300dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="500dp"
+        android:stateListAnimator="@null">
 
         <ImageView
             android:id="@+id/main_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/favorite_btn"

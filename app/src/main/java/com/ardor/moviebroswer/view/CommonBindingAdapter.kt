@@ -1,7 +1,5 @@
 package com.ardor.moviebroswer.view
 
-import android.view.View
-import android.widget.AbsListView
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.SearchView
@@ -11,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ardor.domain.model.SearchEntity
+import com.ardor.moviebroswer.R
+import com.ardor.moviebroswer.core.extension.ScaleLayoutManager
 import com.ardor.moviebroswer.viewmodel.MovieViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -75,12 +75,32 @@ object CommonBindingAdapter {
         data?.let { items ->
             val adapter = view.adapter as? MovieAdapter
             adapter?.submitList(items) ?: run {
+//                view.layoutManager = ScaleLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
                 view.adapter = MovieAdapter(itemClickListener, viewModel).apply {
                     submitList(items)
                 }
             }
         }
 
+        view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            var currentPosition = RecyclerView.NO_POSITION
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (recyclerView.layoutManager != null) {
+                    val snapView = snap.findSnapView(recyclerView.layoutManager)!!
+                    val position = recyclerView.layoutManager!!.getPosition(snapView)
+
+                    if (currentPosition != position) {
+                        currentPosition = position
+                        if(view.id == R.id.movies) {
+                            viewModel.setTitleAndMovie(currentPosition)
+                        }else{
+                            viewModel.setFavoriteTitleAndMovie(currentPosition)
+                        }
+                    }
+                }
+            }
+        })
     }
 
 }
