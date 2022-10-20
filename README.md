@@ -3,6 +3,11 @@
 This is a sample application, which uses the [OMDb API](http://www.omdbapi.com/) to get movie data.
 
 The app follow the **MVVM software architectural pattern** and uses the below libraries.
+
+## Preview
+
+
+## Libraries
 * Kotlin Coroutines
 * Kotlin Flow
 * Dagger Hilt
