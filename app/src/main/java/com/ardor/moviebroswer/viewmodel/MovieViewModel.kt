@@ -5,15 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.ardor.domain.model.SearchEntity
 import com.ardor.domain.usecase.*
 import com.ardor.moviebroswer.core.base.BaseViewModel
-import com.ardor.moviebroswer.view.HomeFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import java.text.FieldPosition
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,6 +41,9 @@ class MovieViewModel @Inject constructor(
 
     private val _favoriteMovieYear: MutableStateFlow<String?> = MutableStateFlow(null)
     val favoriteMovieYear: StateFlow<String?> = _favoriteMovieYear
+
+    private val _isLoading: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
 
     val searchMovie = { query: String? ->
         if (query != null) {
@@ -77,7 +79,12 @@ class MovieViewModel @Inject constructor(
         _movieYear.value = _searchResults.value?.get(position)?.year
     }
 
-    fun setFavoriteTitleAndMovie(position: Int){
+    fun emptyTitleAndMovie() {
+        _movieTitle.value = "No Search Data\nPlease search again"
+        _movieYear.value = ""
+    }
+
+    fun setFavoriteTitleAndMovie(position: Int) {
         _favoriteMovieYear.value = _favoriteMovies.value?.get(position)?.year
         _favoriteMovieTitle.value = _favoriteMovies.value?.get(position)?.title
     }
@@ -97,8 +104,30 @@ class MovieViewModel @Inject constructor(
 
     private fun getMovies(title: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            getMoviesUseCase(title).collect {
-                _searchResults.value = it.search
+            getMoviesUseCase(title).onStart {
+                _isLoading.value = true
+            }.catch {
+                Log.d("testing", "onCatch")
+                //handling error
+            }.collect {
+                _isLoading.value = false
+
+                if (it.search.isNullOrEmpty()) {
+                    val emptyItem: List<SearchEntity> = arrayListOf<SearchEntity>().apply {
+                        this.add(
+                            SearchEntity(
+                                title = "No Search Data\nPlease search again",
+                                year = "",
+                                poster = "",
+                                imdbID = "",
+                                favorite = false
+                            )
+                        )
+                    }
+                    _searchResults.value = emptyItem
+                } else {
+                    _searchResults.value = it.search
+                }
             }
         }
     }

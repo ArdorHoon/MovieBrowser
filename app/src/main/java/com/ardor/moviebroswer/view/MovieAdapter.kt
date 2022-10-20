@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ardor.domain.model.SearchEntity
+import com.ardor.moviebroswer.R
 import com.ardor.moviebroswer.databinding.MovieItemBinding
 import com.ardor.moviebroswer.viewmodel.MovieViewModel
 import com.bumptech.glide.Glide
@@ -35,12 +36,19 @@ class MovieAdapter(
                     mLayoutParam.leftMargin = 200
                 else
                     mLayoutParam.rightMargin = 200
-                        //(screenWidth - binding.root.measuredWidthAndState) / 3
+                //(screenWidth - binding.root.measuredWidthAndState) / 3
             }
 
-            Glide.with(binding.root).load(item.poster).into(binding.mainImg)
-            binding.root.setOnClickListener {
-                itemClickListener.moveDetailPage(item)
+            Glide.with(binding.root).load(item.poster).error(R.drawable.no_search_img)
+                .into(binding.mainImg)
+
+            if (item.favorite) {
+                binding.favoriteBtn.visibility = View.VISIBLE
+                binding.root.setOnClickListener {
+                    itemClickListener.moveDetailPage(item)
+                }
+            } else {
+                binding.favoriteBtn.visibility = View.GONE
             }
 
             //fix it

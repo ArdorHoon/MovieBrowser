@@ -7,4 +7,5 @@ data class SearchEntity(
     val year: String,
     val poster: String,
     val imdbID: String = "",
+    val favorite : Boolean = true
 ) : Serializable

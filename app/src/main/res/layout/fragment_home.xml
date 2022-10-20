@@ -34,6 +34,19 @@
             app:queryHint="@string/search_hint"
             app:theme="@style/AppSearchView" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:src="@drawable/loading_bar"
+            android:scaleType="center"
+            android:background="@color/black"
+            android:elevation="1dp"
+            isLoading="@{viewmodel.isLoading}"
+            android:tint="@color/white"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movies"
             data="@{viewmodel.searchResult}"
@@ -52,7 +65,9 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="0dp"
+            android:textAlignment="center"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="@{viewmodel.movieTitle}"

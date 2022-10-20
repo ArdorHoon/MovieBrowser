@@ -1,5 +1,6 @@
 package com.ardor.moviebroswer.view
 
+import android.view.View
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.SearchView
@@ -16,9 +17,15 @@ import com.bumptech.glide.request.RequestOptions
 
 object CommonBindingAdapter {
 
+    @JvmStatic
+    @BindingAdapter("isLoading")
+    fun isLoading(view: AppCompatImageView, visible: Boolean) {
+        view.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
     @BindingAdapter("setOnQueryTextListener")
     @JvmStatic
-    fun setOnQueryTextListener(view : SearchView, searchMovie: (String?) -> Unit){
+    fun setOnQueryTextListener(view: SearchView, searchMovie: (String?) -> Unit) {
         view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchMovie(query)
@@ -33,7 +40,7 @@ object CommonBindingAdapter {
 
     @BindingAdapter("checkFavorite")
     @JvmStatic
-    fun checkFavorite(view : AppCompatCheckBox, flag : Boolean) {
+    fun checkFavorite(view: AppCompatCheckBox, flag: Boolean) {
         view.isChecked = flag
     }
 
@@ -67,38 +74,42 @@ object CommonBindingAdapter {
             )
         )
 
-        if(view.onFlingListener == null) {
+        if (view.onFlingListener == null) {
             snap.attachToRecyclerView(view)
         }
-
-        data?.let { items ->
-            val adapter = view.adapter as? MovieAdapter
-            adapter?.submitList(items) ?: run {
-                view.adapter = MovieAdapter(itemClickListener, viewModel).apply {
-                    submitList(items)
-                }
-            }
-        }
-
-        view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            var currentPosition = RecyclerView.NO_POSITION
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (recyclerView.layoutManager != null) {
-                    val snapView = snap.findSnapView(recyclerView.layoutManager)!!
-                    val position = recyclerView.layoutManager!!.getPosition(snapView)
-
-                    if (currentPosition != position) {
-                        currentPosition = position
-                        if(view.id == R.id.movies) {
-                            viewModel.setTitleAndMovie(currentPosition)
-                        }else{
-                            viewModel.setFavoriteTitleAndMovie(currentPosition)
-                        }
+            data?.let { items ->
+                val adapter = view.adapter as? MovieAdapter
+                adapter?.submitList(items) ?: run {
+                    view.adapter = MovieAdapter(itemClickListener, viewModel).apply {
+                        submitList(items)
                     }
                 }
+                view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    var currentPosition = RecyclerView.NO_POSITION
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+                        val snapView = snap.findSnapView(recyclerView.layoutManager)
+                        if (recyclerView.layoutManager != null && snapView != null) {
+                            val position = recyclerView.layoutManager!!.getPosition(snapView)
+                            if (currentPosition != position) {
+                                currentPosition = position
+                                if (view.id == R.id.movies) {
+                                    if(items[currentPosition].imdbID.isEmpty()){
+                                        viewModel.emptyTitleAndMovie()
+                                    }
+                                    else{
+                                        viewModel.setTitleAndMovie(currentPosition)
+                                    }
+                                } else {
+                                    viewModel.setFavoriteTitleAndMovie(currentPosition)
+                                }
+                            }
+                        }
+                    }
+                })
             }
-        })
+
+
     }
 
 }
