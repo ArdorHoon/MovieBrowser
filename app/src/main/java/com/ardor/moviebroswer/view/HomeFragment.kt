@@ -23,7 +23,6 @@ class HomeFragment() :
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = viewModel
         binding.itemClickListener = this@HomeFragment
-
     }
 
     override fun moveDetailPage(result: SearchEntity) {

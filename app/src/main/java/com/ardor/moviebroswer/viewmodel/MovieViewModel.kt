@@ -107,7 +107,6 @@ class MovieViewModel @Inject constructor(
             getMoviesUseCase(title).onStart {
                 _isLoading.value = true
             }.catch {
-                Log.d("testing", "onCatch")
                 //handling error
             }.collect {
                 _isLoading.value = false
