@@ -19,26 +19,25 @@ const val API_KEY = "insert your api key"
 
 ## Project Structure
 ```
-.
-└── MovieBroswer/
-    ├── app/
-    │   ├── core/
-    │   │   ├── base
-    │   │   └── extension
-    │   ├── di
-    │   ├── view
-    │   └── viewModel
-    ├── data/
-    │   ├── remote/
-    │   │   ├── api
-    │   │   ├── model
-    │   │   └── source/
-    │   │       └── dao
-    │   └── <repository implementation>
-    └── domain/
-        ├── model
-        ├── repository
-        └── usecase 
+MovieBroswer/
+├── app/
+│   ├── core/
+│   │   ├── base
+│   │   └── extension
+│   ├── di
+│   ├── view
+│   └── viewModel
+├── data/
+│   ├── remote/
+│   │   ├── api
+│   │   ├── model
+│   │   └── source/
+│   │       └── dao
+│   └── <repository implementation>
+└── domain/
+    ├── model
+    ├── repository
+    └── usecase 
 ```
 
 ## Libraries
