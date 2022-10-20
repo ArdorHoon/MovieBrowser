@@ -11,9 +11,6 @@ import com.ardor.moviebroswer.R
 import com.ardor.moviebroswer.databinding.MovieItemBinding
 import com.ardor.moviebroswer.viewmodel.MovieViewModel
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MovieAdapter(
     private val itemClickListener: ItemClickListener,
@@ -51,10 +48,8 @@ class MovieAdapter(
                 binding.favoriteBtn.visibility = View.GONE
             }
 
-            //fix it
-            CoroutineScope(Dispatchers.IO).launch {
-                binding.favoriteBtn.isChecked = viewModel.checkCurrentFavorite(item.imdbID)
-            }
+            binding.favoriteBtn.isChecked =
+                viewModel.favoriteMovies.value?.filter { it.imdbID == item.imdbID }?.size != 0
 
             binding.favoriteBtn.setOnClickListener {
                 if (binding.favoriteBtn.isChecked) {

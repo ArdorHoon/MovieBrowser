@@ -1,17 +1,15 @@
 package com.ardor.moviebroswer.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.ardor.domain.model.SearchEntity
-import com.ardor.domain.usecase.*
+import com.ardor.domain.usecase.DeleteFavoriteMovieUseCase
+import com.ardor.domain.usecase.GetAllFavoriteMoviesUseCase
+import com.ardor.domain.usecase.GetMoviesUseCase
+import com.ardor.domain.usecase.InsertFavoriteMovieUseCase
 import com.ardor.moviebroswer.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,8 +19,10 @@ class MovieViewModel @Inject constructor(
     private val getAllFavoriteMoviesUseCase: GetAllFavoriteMoviesUseCase,
     private val insertFavoriteMovieUseCase: InsertFavoriteMovieUseCase,
     private val deleteFavoriteMovieUseCase: DeleteFavoriteMovieUseCase,
-    private val getFavoriteMovieUseCase: GetFavoriteMovieUseCase
 ) : BaseViewModel() {
+
+    private val _eventFlow = MutableSharedFlow<Event>()
+    val eventFlow = _eventFlow.asSharedFlow()
 
     private val _searchResults: MutableStateFlow<List<SearchEntity>?> = MutableStateFlow(null)
     val searchResult: StateFlow<List<SearchEntity>?> = _searchResults
@@ -89,25 +89,12 @@ class MovieViewModel @Inject constructor(
         _favoriteMovieTitle.value = _favoriteMovies.value?.get(position)?.title
     }
 
-    suspend fun checkCurrentFavorite(imbId: String): Boolean {
-        val check = viewModelScope.async(Dispatchers.IO) {
-            var temp = false
-            getFavoriteMovieUseCase(imbId).collect {
-                if (it != null) {
-                    temp = true
-                }
-            }
-            temp
-        }.await()
-        return check
-    }
-
     private fun getMovies(title: String) {
         viewModelScope.launch(Dispatchers.IO) {
             getMoviesUseCase(title).onStart {
                 _isLoading.value = true
             }.catch {
-                //handling error
+                getMoviesError()
             }.collect {
                 _isLoading.value = false
 
@@ -129,5 +116,29 @@ class MovieViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun getMoviesError() {
+        event(Event.GetMoviesError("server error or network error"))
+    }
+
+    private fun sampleEvent1() {
+        event(Event.SampleEvent1("aaa"))
+    }
+
+    private fun sampleEvent2() {
+        event(Event.SampleEvent2(36))
+    }
+
+    private fun event(event: Event) {
+        viewModelScope.launch {
+            _eventFlow.emit(event)
+        }
+    }
+
+    sealed class Event {
+        data class GetMoviesError(val text: String) : Event()
+        data class SampleEvent1(val value: String) : Event()
+        data class SampleEvent2(val value: Int) : Event()
     }
 }
