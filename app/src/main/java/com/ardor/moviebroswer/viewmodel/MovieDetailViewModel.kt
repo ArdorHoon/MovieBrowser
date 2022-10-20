@@ -34,7 +34,6 @@ class MovieDetailViewModel @Inject constructor(
     fun onClickFavorite() {
         if (_isFavorite.value) {
             deleteFavorite(searchEntity.imdbID)
-
         } else {
             insertFavorite(searchEntity)
         }

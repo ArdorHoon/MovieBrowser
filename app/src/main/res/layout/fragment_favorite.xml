@@ -17,6 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/black"
         tools:context=".view.FavoriteFragment">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="@{viewmodel.favoriteMovieTitle}"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/year"
@@ -54,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:text="@{viewmodel.favoriteMovieYear}"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

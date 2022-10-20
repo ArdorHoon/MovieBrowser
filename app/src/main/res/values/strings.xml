@@ -5,4 +5,5 @@
     <string name="title_home">Home</string>
     <string name="title_favorite">Favorite</string>
     <string name="rating">%1$s / 10</string>
+    <string name="search_hint">Please enter your search term</string>
 </resources>
