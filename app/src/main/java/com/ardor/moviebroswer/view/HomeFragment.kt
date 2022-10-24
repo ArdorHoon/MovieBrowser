@@ -39,8 +39,8 @@ class HomeFragment() :
 
     private fun handleEvent(event: Event) = when (event) {
         is Event.GetMoviesError -> Toast.makeText(requireContext(), event.text, Toast.LENGTH_SHORT).show()
-        is Event.SampleEvent1 -> Toast.makeText(requireContext(), "aaa event: ${event.value}", Toast.LENGTH_SHORT).show()
-        is Event.SampleEvent2 -> Toast.makeText(requireContext(), "bbb event: ${event.value}", Toast.LENGTH_SHORT).show()
+        is Event.TooManyData -> Toast.makeText(requireContext(), event.text, Toast.LENGTH_SHORT).show()
+        is Event.NoSearchData -> Toast.makeText(requireContext(), event.text, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

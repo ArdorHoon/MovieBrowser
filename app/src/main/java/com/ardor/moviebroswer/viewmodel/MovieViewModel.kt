@@ -1,5 +1,6 @@
 package com.ardor.moviebroswer.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.ardor.domain.model.SearchEntity
 import com.ardor.domain.usecase.DeleteFavoriteMovieUseCase
@@ -110,6 +111,12 @@ class MovieViewModel @Inject constructor(
                             )
                         )
                     }
+
+                    when (it.search) {
+                        null -> noSearchData()
+                        else -> tooManyData()
+                    }
+
                     _searchResults.value = emptyItem
                 } else {
                     _searchResults.value = it.search
@@ -122,12 +129,12 @@ class MovieViewModel @Inject constructor(
         event(Event.GetMoviesError("server error or network error"))
     }
 
-    private fun sampleEvent1() {
-        event(Event.SampleEvent1("aaa"))
+    private fun tooManyData() {
+        event(Event.TooManyData("There are too many search results"))
     }
 
-    private fun sampleEvent2() {
-        event(Event.SampleEvent2(36))
+    private fun noSearchData() {
+        event(Event.NoSearchData("No results were found for your search"))
     }
 
     private fun event(event: Event) {
@@ -138,7 +145,7 @@ class MovieViewModel @Inject constructor(
 
     sealed class Event {
         data class GetMoviesError(val text: String) : Event()
-        data class SampleEvent1(val value: String) : Event()
-        data class SampleEvent2(val value: Int) : Event()
+        data class TooManyData(val text: String) : Event()
+        data class NoSearchData(val text: String) : Event()
     }
 }
