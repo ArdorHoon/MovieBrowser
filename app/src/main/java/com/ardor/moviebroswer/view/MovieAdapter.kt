@@ -26,14 +26,12 @@ class MovieAdapter(
         fun bind(item: SearchEntity) {
             if (adapterPosition == 0 || adapterPosition == currentList.size.minus(1)) {
                 binding.root.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-                val screenWidth = binding.root.context.resources.displayMetrics.widthPixels
                 val mLayoutParam: RecyclerView.LayoutParams =
                     binding.root.layoutParams as RecyclerView.LayoutParams
                 if (adapterPosition == 0)
                     mLayoutParam.leftMargin = 200
                 else
                     mLayoutParam.rightMargin = 200
-                //(screenWidth - binding.root.measuredWidthAndState) / 3
             }
 
             Glide.with(binding.root).load(item.poster).error(R.drawable.no_search_img)
