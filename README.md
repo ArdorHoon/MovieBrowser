@@ -53,6 +53,6 @@ MovieBroswer/
 * Glide
 
 ## Data Flow
-
+![data_flow](https://github.com/ArdorHoon/MovieBrowser/assets/35184909/2c84815d-94ae-40db-8db9-64f5c390c525)
 
 
